@@ -32,6 +32,9 @@ public class WebOptimization {
         int w = image.getWidth();
         int h = image.getHeight();
         
+        int white = 0;
+        int non_white = 0;
+        float whitespace = 0.0f;
         
         for(int x = 0; x < w; x++) 
         {
@@ -39,9 +42,19 @@ public class WebOptimization {
             {
                 Color c = new Color(image.getRGB(x, y));
                 System.out.println("Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
+                
+                if (c.getRed() == 255 && c.getGreen() == 255 && c.getBlue() == 255)
+                    white++;
+                else
+                    non_white++;
             }
         }
-        System.out.println();
+        
+        whitespace = (float) non_white / white;
+        
+        System.out.println("white pixels: " + white);
+        System.out.println("non_white pixels: " + non_white);
+        System.out.println("Whitespace ratio(non_white vs. white): " + whitespace);
     }
     
 }
