@@ -6,6 +6,11 @@
 package weboptimization;
 
 import gui.ava.html.image.generator.HtmlImageGenerator;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -16,12 +21,27 @@ public class WebOptimization {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) 
+    public static void main(String[] args) throws IOException 
     {
-        HtmlImageGenerator imageGenerator = new HtmlImageGenerator(); 
+        HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
         imageGenerator.loadHtml("<html><head><meta charset=\"UTF-8\"></head><h1>Hello World!</h1> <p>Please goto <a title=\"Goto Google\" href=\"http://www.google.com\">Google</a>.</p></body></html>"); 
         imageGenerator.saveAsImage("hello-world.png"); 
         imageGenerator.saveAsHtmlWithMap("hello-world.html", "hello-world.png");
+        
+        BufferedImage image = ImageIO.read(new File("hello-world.png"));    
+        int w = image.getWidth();
+        int h = image.getHeight();
+        
+        
+        for(int x = 0; x < w; x++) 
+        {
+            for(int y = 0; y < h; y++)
+            {
+                Color c = new Color(image.getRGB(x, y));
+                System.out.println("Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
+            }
+        }
+        System.out.println();
     }
     
 }
