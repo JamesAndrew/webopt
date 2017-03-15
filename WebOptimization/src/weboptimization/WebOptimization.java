@@ -24,7 +24,7 @@ public class WebOptimization {
     public static void main(String[] args) throws IOException 
     {
         HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
-        imageGenerator.loadHtml("<html><head><meta charset=\"UTF-8\"></head><h1>Hello World!</h1> <p>Please goto <a title=\"Goto Google\" href=\"http://www.google.com\">Google</a>.</p></body></html>"); 
+        imageGenerator.loadHtml("<html><head><meta charset=\"UTF-8\"><style>body{margin: 50px;}h1{margin: 25px;}p{margin: 10px;}</style></head><h1>Hello World!</h1> <p>Please goto <a title=\"Goto Google\" href=\"http://www.google.com\">Google</a>.</p></body></html>"); 
         imageGenerator.saveAsImage("hello-world.png"); 
         imageGenerator.saveAsHtmlWithMap("hello-world.html", "hello-world.png");
         
