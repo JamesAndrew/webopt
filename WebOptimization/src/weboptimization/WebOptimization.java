@@ -26,8 +26,19 @@ public class WebOptimization {
         int width = 1024;
         int height = 768;
         
-        String html = "<html><head><meta charset=\"UTF-8\"><style>body{width: " + width + 
-                "px; height: " + height + "px; overflow: hidden;}</style></head><body><h1>CHAPTER VII. A Mad Tea-Party</h1>" +
+        int body_sidemargin;
+        int body_bmargin;
+        
+        int h1_tmargin;
+        int h1_bmargin;
+        int h1_fontsize;
+        
+        int p_tmargin;
+        int p_bmargin;
+        int p_fontsize;
+        
+        String html = "<html><head><meta charset=\"UTF-8\"><style>body{width: " + width + "px; max-width: " + width + 
+                "px; height: " + height + "px; max-height: " + height + "px; overflow: hidden; margin-right:auto; margin-left: auto; font-family: Georgia;} h1{margin: 10px;} p{margin: 10px;}</style></head><body><h1>CHAPTER VII. A Mad Tea-Party</h1>" +
                 "<p>There was a table set out under a tree in front of the house, and the" +
     "March Hare and the Hatter were having tea at it: a Dormouse was sitting " +
     "between them, fast asleep, and the other two were using it as a " +
@@ -59,7 +70,7 @@ public class WebOptimization {
     "March Hare.</p>" +
     "<p>‘Exactly so,’ said Alice.</p>" +
     "<p>‘Then you should say what you mean,’ the March Hare went on.</p>" +
-    "</p>‘I do,’ Alice hastily replied; ‘at least--at least I mean what I " +
+    "<p>‘I do,’ Alice hastily replied; ‘at least--at least I mean what I " +
     "say--that’s the same thing, you know.’</p>" +
     "<p>‘Not the same thing a bit!’ said the Hatter. ‘You might just as well say " +
     "that “I see what I eat” is the same thing as “I eat what I see”!’</p>" +
@@ -101,21 +112,21 @@ public class WebOptimization {
         int non_white = 0;
         float whitespace = 0.0f;
         
-        for(int x = 0; x < w; x++) 
-        {
-            for(int y = 0; y < h; y++)
-            {
-                Color c = new Color(image.getRGB(x, y));
-                System.out.println("Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
-                
-                if (c.getRed() == 255 && c.getGreen() == 255 && c.getBlue() == 255)
-                    white++;
-                else
-                    non_white++;
-            }
-        }
-        
-        whitespace = (float) non_white / white;
+//        for(int x = 0; x < w; x++) 
+//        {
+//            for(int y = 0; y < h; y++)
+//            {
+//                Color c = new Color(image.getRGB(x, y));
+//                System.out.println("Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
+//                
+//                if (c.getRed() == 255 && c.getGreen() == 255 && c.getBlue() == 255)
+//                    white++;
+//                else
+//                    non_white++;
+//            }
+//        }
+//        
+//        whitespace = (float) non_white / white;
         
         System.out.println("white pixels: " + white);
         System.out.println("non_white pixels: " + non_white);
