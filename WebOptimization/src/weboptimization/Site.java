@@ -54,16 +54,21 @@ public class Site
         setHTMLString();
     }
     
-    private void setHTMLString()
+    public String getHTMLString()
+    {
+        return html;
+    }
+    
+    public void setHTMLString()
     {
         html = "<html><head><meta charset=\"UTF-8\">" +
             "<style>body{width: " + width + "px; max-width: " + width + "px;" +
-            "height: " + height + "px; max-height: " + height + "px;" + 
-            "overflow: hidden; margin-right: auto; margin-left: auto;" +  
-            "font-family: Georgia;}" +
-            "h1{margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; font-size: " + h1_fontsize + "px;}" + 
+            "height: " + height + "px; max-height: " + height + "px;" +
+            "overflow: hidden; margin-right: auto; margin-left: auto; font-family: Georgia;}" +
+            "h1{margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; font-size: " + h1_fontsize + "px;}" +
             "h2{margin-top: " + h2_tmargin + "px; margin-bottom: " + h2_bmargin + "px font-size: " + h2_fontsize + "px;}" +
-            "p{margin-top: " + p_tmargin + "px; margin-bottom: " + p_bmargin + "px; margin-left: "+ p_smargin + "px; margin-bottom: " + p_smargin + "px; font-size: " + p_fontsize + "px;}" +
+            "p{margin-top: " + p_tmargin + "px; margin-bottom: " + p_bmargin + "px; margin-left: "+ p_smargin + "px; " +
+            "margin-bottom: " + p_smargin + "px; font-size: " + p_fontsize + "px;}" +
             "</style></head><body><center>" + 
                 
             "<h1>Alice's Adventures in Wonderland<h1></h1><h2>CHAPTER VII. A Mad Tea-Party</h2></center>" +
@@ -126,9 +131,86 @@ public class Site
             "nothing better to say than his first remark, ‘It was the BEST butter, " +
             "you know.’</p></body></html>";
     }
-    
-    public String getHTMLString()
-    {
-        return html;
+
+    public int getH1_tmargin() {
+        return h1_tmargin;
     }
+
+    public void setH1_tmargin(int h1_tmargin) {
+        this.h1_tmargin = h1_tmargin;
+    }
+
+    public int getH1_bmargin() {
+        return h1_bmargin;
+    }
+
+    public void setH1_bmargin(int h1_bmargin) {
+        this.h1_bmargin = h1_bmargin;
+    }
+
+    public int getH1_fontsize() {
+        return h1_fontsize;
+    }
+
+    public void setH1_fontsize(int h1_fontsize) {
+        this.h1_fontsize = h1_fontsize;
+    }
+
+    public int getH2_tmargin() {
+        return h2_tmargin;
+    }
+
+    public void setH2_tmargin(int h2_tmargin) {
+        this.h2_tmargin = h2_tmargin;
+    }
+
+    public int getH2_bmargin() {
+        return h2_bmargin;
+    }
+
+    public void setH2_bmargin(int h2_bmargin) {
+        this.h2_bmargin = h2_bmargin;
+    }
+
+    public int getH2_fontsize() {
+        return h2_fontsize;
+    }
+
+    public void setH2_fontsize(int h2_fontsize) {
+        this.h2_fontsize = h2_fontsize;
+    }
+
+    public int getP_tmargin() {
+        return p_tmargin;
+    }
+
+    public void setP_tmargin(int p_tmargin) {
+        this.p_tmargin = p_tmargin;
+    }
+
+    public int getP_bmargin() {
+        return p_bmargin;
+    }
+
+    public void setP_bmargin(int p_bmargin) {
+        this.p_bmargin = p_bmargin;
+    }
+
+    public int getP_smargin() {
+        return p_smargin;
+    }
+
+    public void setP_smargin(int p_smargin) {
+        this.p_smargin = p_smargin;
+    }
+
+    public int getP_fontsize() {
+        return p_fontsize;
+    }
+
+    public void setP_fontsize(int p_fontsize) {
+        this.p_fontsize = p_fontsize;
+    }
+    
+    
 }
