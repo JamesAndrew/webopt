@@ -35,6 +35,8 @@ public class Site
     boolean p_font;
     boolean chars;
     boolean space;
+    
+    float wspace;
 
     String html;
     
@@ -78,7 +80,7 @@ public class Site
             "</style></head>" + 
                 
             "<body><h1>Alice's Adventures in Wonderland</h1>" + 
-            "<p>There was a table set out under a tree in front of the house, and the" +
+            "<p>There was a table set out under a tree in front of the house, and the " +
             "March Hare and the Hatter were having tea at it: a Dormouse was sitting " +
             "between them, fast asleep, and the other two were using it as a " +
             "cushion, resting their elbows on it, and talking over its head. ‘Very " +
@@ -176,6 +178,8 @@ public class Site
     public void setP_tbmargin(int p) 
     {
         p_tbmargin = p;
+        setH1_bmargin(p);
+        setH1_tmargin(p*2);
     }
 
     public int getP_smargin() 
@@ -197,10 +201,59 @@ public class Site
     public void setP_fontsize(int p) 
     {
         p_fontsize = p;
+        h1_fontsize = p*2;
+    }
+
+    public boolean getP_font() 
+    {
+        return p_font;
+    }
+    
+    public void adjustP_font()
+    {
+        if(p_fontsize < 24)
+            setP_fontsize(p_fontsize+1);
+        else if(p_fontsize > 32)
+            setP_fontsize(p_fontsize-1);
         
-        
-        int h1 = p*2;
-        setH1_fontsize(h1);
+    }
+
+    public boolean getChars() 
+    {
+        return chars;
+    }
+    
+    public void adjustChars()
+    {
+        int charConstraint = (1024 - p_smargin*2)/(p_fontsize/2);
+        if(charConstraint < 60)
+        {
+            if(p_smargin == 0)
+            {
+                setP_fontsize(p_fontsize+1);
+            }
+            else
+                setP_smargin(p_smargin-5);
+        }
+        else if(charConstraint > 80)
+        {
+            setP_smargin(p_smargin+5);
+        }
+    }
+
+    public boolean getSpace() 
+    {
+        return space;
+    }
+    
+    public void adjustSpace()
+    {
+        if(wspace > 0.05)
+        {
+            setP_tbmargin(p_tbmargin+5);
+        }
+        else
+            setP_tbmargin(p_tbmargin-5);
     }
     
     public int checkConstraints() throws IOException
@@ -208,7 +261,7 @@ public class Site
         int c = 0;
         
         // check fontsize constraint
-        if((p_fontsize < 16) || (p_fontsize > 32))
+        if((p_fontsize < 24) || (p_fontsize > 32))
         {
             p_font = false;
             c++;
@@ -217,7 +270,10 @@ public class Site
             p_font = true;
         
         // check number of characters constraint
-        int charConstraint = (768 - p_smargin*2)/(p_fontsize/2);
+        int charConstraint = (1024 - p_smargin*2)/(p_fontsize/2);
+        
+        System.out.println(charConstraint + ", " + p_smargin + ", " + p_fontsize + ", " + h1_fontsize);
+        
         if((charConstraint < 60) || (charConstraint > 80))
         {
             chars = false;
@@ -229,7 +285,7 @@ public class Site
         // check whitespace constraint
         BufferedImage image = ImageIO.read(new File("hello-world.png"));    
         int w = image.getWidth();
-        int h = image.getHeight();
+        int h = height;
         
         int white = 0;
         int non_white = 0;
@@ -249,6 +305,7 @@ public class Site
         }
         
         whitespace = (float) non_white / white;
+        wspace = whitespace;
         
         if(whitespace > 0.05)
         {
@@ -258,8 +315,7 @@ public class Site
         else
             space = true;
         
-        System.out.println("white pixels: " + white);
-        System.out.println("non_white pixels: " + non_white);
+        System.out.println(p_tbmargin);
         System.out.println("Whitespace ratio(non_white vs. white): " + whitespace);
         
         return c;
