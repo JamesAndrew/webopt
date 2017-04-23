@@ -73,10 +73,10 @@ public class Site
             "height: " + height + "px; max-height: " + height + "px;" +
             "overflow: hidden; margin-right: auto; margin-left: auto; font-family: Georgia;}" +
             
-            "h1{margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; margin-left: " + p_smargin + "px; " +
-            "margin-right" + p_smargin + "px; font-size: " + h1_fontsize + "px;}" +
-            "p{margin-top: " + p_tbmargin + "px; margin-bottom: " + p_tbmargin + "px; margin-left: "+ p_smargin + "px; " +
-            "margin-right: " + p_smargin + "px; font-size: " + p_fontsize + "px;}" +
+            "h1{font-size: " + h1_fontsize + "px; margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; margin-left: " + p_smargin + "px; " +
+            "margin-right" + p_smargin + "px; }" +
+            "p{font-size: " + p_fontsize + "px; margin-top: " + p_tbmargin + "px; margin-bottom: " + p_tbmargin + "px; margin-left: "+ p_smargin + "px; " +
+            "margin-right: " + p_smargin + "px;}" +
             "</style></head>" + 
                 
             "<body><h1>Alice's Adventures in Wonderland</h1>" + 
@@ -250,10 +250,15 @@ public class Site
     {
         if(wspace > 0.05)
         {
-            setP_tbmargin(p_tbmargin+5);
+            if(p_tbmargin < 45)
+                setP_tbmargin(p_tbmargin+5);
+            
         }
         else
-            setP_tbmargin(p_tbmargin-5);
+        {
+            if(p_tbmargin > 0)
+                setP_tbmargin(p_tbmargin-5);
+        }
     }
     
     public int checkConstraints() throws IOException
@@ -272,7 +277,7 @@ public class Site
         // check number of characters constraint
         int charConstraint = (1024 - p_smargin*2)/(p_fontsize/2);
         
-        System.out.println(charConstraint + ", " + p_smargin + ", " + p_fontsize + ", " + h1_fontsize);
+        //System.out.println(charConstraint + ", " + p_smargin + ", " + p_fontsize + ", " + h1_fontsize);
         
         if((charConstraint < 60) || (charConstraint > 80))
         {
@@ -315,7 +320,7 @@ public class Site
         else
             space = true;
         
-        System.out.println(p_tbmargin);
+        //System.out.println(p_tbmargin);
         System.out.println("Whitespace ratio(non_white vs. white): " + whitespace);
         
         return c;
