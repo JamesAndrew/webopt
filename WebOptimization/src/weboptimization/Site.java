@@ -5,6 +5,12 @@
  */
 package weboptimization;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 /**
  *
  * @author James
@@ -20,34 +26,30 @@ public class Site
     int h1_bmargin;
     int h1_fontsize;
     
-    // variables for secondary heading
-    int h2_tmargin;
-    int h2_bmargin;
-    int h2_fontsize;
-
     // variables for paragraphs
-    int p_tmargin;
-    int p_bmargin;
+    int p_tbmargin;
     int p_smargin;
     int p_fontsize;
+    
+    // constraint variables
+    boolean p_font;
+    boolean chars;
+    boolean space;
 
     String html;
+    
+    int conflicts;
     
     public Site()
     {
         width = 1024;
         height = 768;
         
-        h1_tmargin = 5;
+        h1_tmargin = 10;
         h1_bmargin = 5;
         h1_fontsize = 32;
         
-        h2_tmargin = 5;
-        h2_bmargin = 5;
-        h2_fontsize = 24;
-        
-        p_tmargin = 5;
-        p_bmargin = 5;
+        p_tbmargin = 5;
         p_smargin = 5;
         p_fontsize = 16;
         
@@ -61,17 +63,21 @@ public class Site
     
     public void setHTMLString()
     {
-        html = "<html><head><meta charset=\"UTF-8\">" +
+        
+        html = "<html>" +
+                
+            "<head><meta charset=\"UTF-8\">" +
             "<style>body{width: " + width + "px; max-width: " + width + "px;" +
             "height: " + height + "px; max-height: " + height + "px;" +
             "overflow: hidden; margin-right: auto; margin-left: auto; font-family: Georgia;}" +
-            "h1{margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; font-size: " + h1_fontsize + "px;}" +
-            "h2{margin-top: " + h2_tmargin + "px; margin-bottom: " + h2_bmargin + "px font-size: " + h2_fontsize + "px;}" +
-            "p{margin-top: " + p_tmargin + "px; margin-bottom: " + p_bmargin + "px; margin-left: "+ p_smargin + "px; " +
-            "margin-bottom: " + p_smargin + "px; font-size: " + p_fontsize + "px;}" +
-            "</style></head><body><center>" + 
+            
+            "h1{margin-top: " + h1_tmargin + "px; margin-bottom: " + h1_bmargin + "px; margin-left: " + p_smargin + "px; " +
+            "margin-right" + p_smargin + "px; font-size: " + h1_fontsize + "px;}" +
+            "p{margin-top: " + p_tbmargin + "px; margin-bottom: " + p_tbmargin + "px; margin-left: "+ p_smargin + "px; " +
+            "margin-right: " + p_smargin + "px; font-size: " + p_fontsize + "px;}" +
+            "</style></head>" + 
                 
-            "<h1>Alice's Adventures in Wonderland<h1></h1><h2>CHAPTER VII. A Mad Tea-Party</h2></center>" +
+            "<body><h1>Alice's Adventures in Wonderland</h1>" + 
             "<p>There was a table set out under a tree in front of the house, and the" +
             "March Hare and the Hatter were having tea at it: a Dormouse was sitting " +
             "between them, fast asleep, and the other two were using it as a " +
@@ -131,86 +137,132 @@ public class Site
             "nothing better to say than his first remark, ‘It was the BEST butter, " +
             "you know.’</p></body></html>";
     }
-
-    public int getH1_tmargin() {
+    
+    public int getH1_tmargin() 
+    {
         return h1_tmargin;
     }
 
-    public void setH1_tmargin(int h1_tmargin) {
-        this.h1_tmargin = h1_tmargin;
+    public void setH1_tmargin(int h1) 
+    {
+        h1_tmargin = h1;
+        setH1_bmargin(h1/2);
     }
 
-    public int getH1_bmargin() {
+    public int getH1_bmargin() 
+    {
         return h1_bmargin;
     }
 
-    public void setH1_bmargin(int h1_bmargin) {
-        this.h1_bmargin = h1_bmargin;
+    public void setH1_bmargin(int h1) 
+    {
+        h1_bmargin = h1;
     }
 
-    public int getH1_fontsize() {
+    public int getH1_fontsize() 
+    {
         return h1_fontsize;
     }
 
-    public void setH1_fontsize(int h1_fontsize) {
-        this.h1_fontsize = h1_fontsize;
+    public void setH1_fontsize(int h1) 
+    {
+        h1_fontsize = h1;
     }
 
-    public int getH2_tmargin() {
-        return h2_tmargin;
+    public int getP_tbmargin() {
+        return p_tbmargin;
     }
 
-    public void setH2_tmargin(int h2_tmargin) {
-        this.h2_tmargin = h2_tmargin;
+    public void setP_tbmargin(int p) 
+    {
+        p_tbmargin = p;
     }
 
-    public int getH2_bmargin() {
-        return h2_bmargin;
-    }
-
-    public void setH2_bmargin(int h2_bmargin) {
-        this.h2_bmargin = h2_bmargin;
-    }
-
-    public int getH2_fontsize() {
-        return h2_fontsize;
-    }
-
-    public void setH2_fontsize(int h2_fontsize) {
-        this.h2_fontsize = h2_fontsize;
-    }
-
-    public int getP_tmargin() {
-        return p_tmargin;
-    }
-
-    public void setP_tmargin(int p_tmargin) {
-        this.p_tmargin = p_tmargin;
-    }
-
-    public int getP_bmargin() {
-        return p_bmargin;
-    }
-
-    public void setP_bmargin(int p_bmargin) {
-        this.p_bmargin = p_bmargin;
-    }
-
-    public int getP_smargin() {
+    public int getP_smargin() 
+    {
         return p_smargin;
     }
 
-    public void setP_smargin(int p_smargin) {
-        this.p_smargin = p_smargin;
+    public void setP_smargin(int p) 
+    {
+        p_smargin = p;
+        
     }
 
-    public int getP_fontsize() {
+    public int getP_fontsize() 
+    {
         return p_fontsize;
     }
 
-    public void setP_fontsize(int p_fontsize) {
-        this.p_fontsize = p_fontsize;
+    public void setP_fontsize(int p) 
+    {
+        p_fontsize = p;
+        
+        
+        int h1 = p*2;
+        setH1_fontsize(h1);
     }
     
+    public int checkConstraints() throws IOException
+    {
+        int c = 0;
+        
+        // check fontsize constraint
+        if((p_fontsize < 16) || (p_fontsize > 32))
+        {
+            p_font = false;
+            c++;
+        }
+        else
+            p_font = true;
+        
+        // check number of characters constraint
+        int charConstraint = (768 - p_smargin*2)/(p_fontsize/2);
+        if((charConstraint < 60) || (charConstraint > 80))
+        {
+            chars = false;
+            c++;
+        }
+        else
+            chars = true;
+        
+        // check whitespace constraint
+        BufferedImage image = ImageIO.read(new File("hello-world.png"));    
+        int w = image.getWidth();
+        int h = image.getHeight();
+        
+        int white = 0;
+        int non_white = 0;
+        float whitespace = 0.0f;
+        
+        for(int x = 0; x < w; x++) 
+        {
+            for(int y = 0; y < h; y++)
+            {
+                Color color = new Color(image.getRGB(x, y));
+                
+                if (color.getRed() == 255 && color.getGreen() == 255 && color.getBlue() == 255)
+                    white++;
+                else
+                    non_white++;
+            }
+        }
+        
+        whitespace = (float) non_white / white;
+        
+        if(whitespace > 0.05)
+        {
+            space = false;
+            c++;
+        }
+        else
+            space = true;
+        
+        System.out.println("white pixels: " + white);
+        System.out.println("non_white pixels: " + non_white);
+        System.out.println("Whitespace ratio(non_white vs. white): " + whitespace);
+        
+        return c;
+    }
     
 }
