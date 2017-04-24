@@ -47,13 +47,13 @@ public class Site
         width = 1024;
         height = 768;
         
-        h1_tmargin = 10;
-        h1_bmargin = 5;
-        h1_fontsize = 32;
+        h1_tmargin = 40;
+        h1_bmargin = 20;
+        h1_fontsize = 48;
         
-        p_tbmargin = 5;
-        p_smargin = 5;
-        p_fontsize = 16;
+        p_tbmargin = 20;
+        p_smargin = 10;
+        p_fontsize = 24;
         
         setHTMLString();
     }
@@ -266,7 +266,7 @@ public class Site
         int c = 0;
         
         // check fontsize constraint
-        if((p_fontsize < 24) || (p_fontsize > 32))
+        if((p_fontsize < 18) || (p_fontsize > 32))
         {
             p_font = false;
             c++;
@@ -277,7 +277,7 @@ public class Site
         // check number of characters constraint
         int charConstraint = (1024 - p_smargin*2)/(p_fontsize/2);
         
-        //System.out.println(charConstraint + ", " + p_smargin + ", " + p_fontsize + ", " + h1_fontsize);
+        System.out.println(charConstraint + ", " + p_smargin + ", " + p_fontsize + ", " + h1_fontsize);
         
         if((charConstraint < 60) || (charConstraint > 80))
         {
@@ -320,7 +320,7 @@ public class Site
         else
             space = true;
         
-        //System.out.println(p_tbmargin);
+        System.out.println(p_tbmargin);
         System.out.println("Whitespace ratio(non_white vs. white): " + whitespace);
         
         return c;
